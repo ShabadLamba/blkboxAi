@@ -1,0 +1,96 @@
+.container {
+    padding-bottom: 50px;
+    .title {
+        display: flex;
+        justify-content: space-between;
+        margin: 60px 105px;
+        div {
+            .heading {
+                font-size: 32px;
+                font-weight: 800;
+            }
+            .sub-heading {
+                font-size: 20px;
+                padding: 25px 0px;
+                padding-bottom: 0px;
+            }
+        }
+        .selectionText {
+            display: flex;
+            align-items: flex-end;
+            font-size: 20px;
+            color: #1445ea;
+            font-weight: 500;
+        }
+    }
+    .main {
+        .frames-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-gap: 17px;
+            margin: 110px;
+            margin-top: 0px;
+            margin-bottom: 80px;
+            position: relative;
+            div {
+                display: flex;
+                position: relative;
+                cursor: pointer;
+                .video {
+                    width: 100%;
+                    height: 200px;
+                    object-fit: fill;
+                    box-shadow: rgb(0 0 0 / 20%) 0px 1px 6px 0px;
+                    border-radius: 2px;
+                }
+                .selected {
+                    background-color: #09c855;
+                    color: #fff;
+                    position: absolute;
+                    height: 40px;
+                    // content: "";
+                    width: 100%;
+                    z-index: 1;
+                    bottom: -1px;
+                    font-size: 22px;
+                    display: flex;
+                    align-items: center;
+                    box-shadow: rgb(0 0 0 / 20%) 0px 1px 6px 0px;
+                    // border-radius: 2px;
+                    .tick-icon {
+                        padding: 0px 10px;
+                        font-size: 28px;
+                        padding-bottom: 5px;
+                    }
+                }
+            }
+        }
+    }
+    .next-btn {
+        display: flex;
+        justify-content: center;
+        button {
+            width: 100px;
+        }
+         ::ng-deep {
+            .mat-flat-button.mat-primary,
+            .mat-raised-button.mat-primary,
+            .mat-fab.mat-primary,
+            .mat-mini-fab.mat-primary {
+                background-color: #1445ea;
+            }
+            .mat-raised-button[disabled]:not([class*="mat-elevation-z"]) {
+                background-color: #e0e0e0 !important;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .frames-grid {
+        display: grid;
+        grid-template-columns: 1fr !important;
+        grid-gap: 17px;
+        margin: 30px !important;
+    }
+}

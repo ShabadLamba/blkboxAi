@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="title">
+        <div>
+            <div class="heading">App Name</div>
+            <div class="sub-heading">Select a video frame</div>
+        </div>
+        <div class="selectionText">
+            {{ selectedVideo ? 1 : 0 }} selected out of 84 frames
+        </div>
+    </div>
+    <div class="main">
+        <div class="frames-grid">
+            <ng-container *ngFor="let frame of listOfVideoFrames">
+                <div (click)="videoSelected(frame)">
+                    <video class="video">
+            <source src="{{ frame.url }}" type="video/mp4" />
+          </video>
+                    <div *ngIf="selectedVideo === frame.name" [ngClass]="{ selected: selectedVideo === frame.name }">
+                        <mat-icon class="material-icons-outlined tick-icon">check_circle_outline</mat-icon>
+                        <span>Selected</span>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+    <div class="next-btn">
+        <button mat-flat-button color="primary" (click)="goToVideos()" [disabled]="!selectedVideo">
+      Next
+    </button>
+    </div>
+</div>

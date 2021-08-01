@@ -1,1 +1,55 @@
 /* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-snack-bar-container {
+    margin-top: 100px !important;
+    background-color: #09c855;
+}
+
+.mat-tooltip {
+    // to make possible place arrow pseudo element outside tooltip with absolute positioning
+    overflow: visible !important;
+    position: relative;
+    border-left: 1px solid #fff;
+    // margin-left: 5px;
+    &::before {
+        position: absolute;
+        content: "";
+        display: inline-block;
+        background-color: #fff;
+        clip-path: polygon(50% 0, 0 50%, 50% 100%);
+        left: -8px;
+        width: 15px;
+        height: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}
+
+.mat-flat-button.mat-primary[disabled],
+.mat-flat-button.mat-accent[disabled],
+.mat-flat-button.mat-warn[disabled],
+.mat-flat-button[disabled][disabled],
+.mat-raised-button.mat-primary[disabled],
+.mat-raised-button.mat-accent[disabled],
+.mat-raised-button.mat-warn[disabled],
+.mat-raised-button[disabled][disabled],
+.mat-fab.mat-primary[disabled],
+.mat-fab.mat-accent[disabled],
+.mat-fab.mat-warn[disabled],
+.mat-fab[disabled][disabled],
+.mat-mini-fab.mat-primary[disabled],
+.mat-mini-fab.mat-accent[disabled],
+.mat-mini-fab.mat-warn[disabled],
+.mat-mini-fab[disabled][disabled] {
+    background-color: #e0e0e0 !important;
+}

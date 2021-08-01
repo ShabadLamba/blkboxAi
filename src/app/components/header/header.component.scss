@@ -1,0 +1,66 @@
+.container {
+    background-color: #14142b;
+    color: #dadada;
+    height: 8.5vh;
+    height: 8.5vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 5.5%;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: system-ui;
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        .logo-icon {
+            img {
+                width: 32px;
+                height: 32px;
+            }
+        }
+        .logo-text {}
+    }
+    .tabs {
+        display: flex;
+        flex-direction: row;
+        width: 10%;
+        justify-content: space-between;
+        gap: 5%;
+        .tab-text {
+            position: relative;
+        }
+        .tab-text:hover {
+            color: #fff;
+            cursor: pointer;
+        }
+        .underline:after {
+            content: "";
+            position: absolute;
+            width: 35%;
+            display: block;
+            height: 2px;
+            background-color: #f37b3f;
+            right: 30%;
+            margin-top: 3px;
+        }
+    }
+    .userName {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        div {
+            .userName-icon {
+                background: white;
+                border-radius: 100%;
+                padding: 10px;
+                color: #1445ea;
+                font-size: 16px;
+                font-weight: 700;
+            }
+        }
+        .userName-text {}
+    }
+}

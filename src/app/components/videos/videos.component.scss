@@ -1,0 +1,178 @@
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.heading {
+    display: flex;
+    justify-content: space-between;
+    padding: 40px 5.5%;
+    padding-bottom: 0px;
+    .heading-text {
+        font-size: 32px;
+        font-weight: 800;
+        padding-top: 10px;
+    }
+    .save-video-btn {
+        button {
+            padding: 5px 20px;
+        }
+    }
+}
+
+.videos {
+    display: flex;
+    justify-content: center;
+    // padding-top: 10px;
+    margin-bottom: 65px;
+}
+
+.video-wrap {
+    position: relative;
+}
+
+.video-wrap .placeholder {
+    max-width: 700px;
+    width: 100%;
+}
+
+.video-wrap .play-btn {
+    position: absolute;
+    max-width: 700px;
+    // width: 100px;
+    // height: 100px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    z-index: 10;
+}
+
+.video-wrap .play-btn svg {
+    transition: all 0.2s ease;
+    fill: #fff;
+}
+
+.video-wrap .video-player {
+    width: 45vw;
+    height: 45vh;
+    object-fit: fill;
+    box-shadow: rgb(0 0 0 / 10%) 0px 1px 6px 0px;
+    border-radius: 2px;
+}
+
+.video-wrap .play-btn:hover svg,
+.video-wrap .play-btn:focus svg {
+    cursor: pointer;
+    fill: #17e617;
+}
+
+.player {
+    display: flex;
+    height: 23vh;
+    .player-timer {
+        min-width: 8%;
+        max-width: 8%;
+        background-color: #14142b;
+        flex-grow: 3;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        color: white;
+        .total-time-text {
+            font-size: 13px;
+            color: #c0c0c0;
+            padding-bottom: 3px;
+        }
+    }
+    .player-controls {
+        min-width: 3%;
+        max-width: 3%;
+        background-color: #1445ea;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        mat-icon {
+            cursor: pointer;
+        }
+    }
+    .player-frames {
+        background-color: #ececec;
+        flex-grow: 10;
+        display: flex;
+        gap: 20px;
+        padding: 35px 40px;
+        position: relative;
+        .player-video {
+            width: 14vw;
+            // height: 100px;
+            object-fit: fill;
+            box-shadow: rgb(0 0 0 / 20%) 0px 1px 6px 0px;
+            border-radius: 2px;
+        }
+        .player-cursor {
+            .player-cursor-bar {
+                width: 5px;
+                background: black;
+                position: absolute;
+                left: 98px;
+                height: 8px;
+                top: 0px;
+            }
+            .player-cursor-line {
+                width: 1px;
+                background: black;
+                position: absolute;
+                left: 100px;
+                height: -webkit-fill-available;
+                top: 0px;
+            }
+        }
+    }
+}
+
+::ng-deep .toolTip {
+    background-color: #fff !important;
+    color: #000 !important;
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.activeVideo {
+    background: #d0dafb;
+    border-radius: 3px;
+}
+
+::ng-deep {
+    .mat-flat-button.mat-primary,
+    .mat-raised-button.mat-primary,
+    .mat-fab.mat-primary,
+    .mat-mini-fab.mat-primary {
+        background-color: #1445ea;
+    }
+    .mat-raised-button[disabled]:not([class*="mat-elevation-z"]) {
+        background-color: #e0e0e0 !important;
+    }
+}
+
+// ::ng-deep .toolTip:after {
+//     content: "";
+//     border: 1px solid #fff;
+//     background-color: #fff !important;
+//     color: #000 !important;
+//     font-weight: 600;
+//     font-size: 12px;
+// }
+@media screen and (max-width: 600px) {
+    .video-wrap .play-btn {
+        width: 70px;
+        height: 70px;
+    }
+}

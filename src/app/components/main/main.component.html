@@ -1,0 +1,12 @@
+<app-header (home)="goToHome($event)" (videos)="goToVideos($event)" [_activeTab]="activeTab"></app-header>
+<div class="spinner" *ngIf="!activeTab">
+    <mat-spinner></mat-spinner>
+</div>
+<div *ngIf="activeTab" [ngStyle]="{
+    height: '91.5vh',
+    overflow: activeTab === 'videos' ? 'hidden' : 'auto'
+  }">
+    <app-home *ngIf="activeTab === 'home'" (frameSelected)="frameSelected($event)" (switchToVideos)="goToVideos('')"></app-home>
+    <app-videos *ngIf="activeTab === 'videos'" [_selectedFrameName]="selectedFrame" [_listOfVideos]="listOfVideos"></app-videos>
+</div>
+<!-- <router-outlet *ngIf="activeTab"></router-outlet> -->

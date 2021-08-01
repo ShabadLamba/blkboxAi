@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="logo">
+        <div class="logo-icon">
+            <img src="./../../../assets/logo_white.png" />
+        </div>
+        <div class="logo-text">Blkbox</div>
+    </div>
+    <div class="tabs">
+        <div class="tab-text" (click)="goToHome($event)" [ngClass]="{ underline: activeTab === 'home' }">
+            Home
+        </div>
+        <div class="tab-text" (click)="goToVideos($event)" [ngClass]="{ underline: activeTab === 'videos' }">
+            Videos
+        </div>
+    </div>
+    <div class="userName">
+        <div>
+            <div class="userName-icon">DL</div>
+        </div>
+        <div class="userName-text">Devon Lane</div>
+    </div>
+</div>
