@@ -121,6 +121,7 @@
             border-radius: 2px;
         }
         .player-cursor {
+            z-index: 1;
             .player-cursor-bar {
                 width: 5px;
                 background: black;
