@@ -9,18 +9,8 @@ const routes: Routes = [
   {
     path: 'main',
     component: MainComponent,
-    children: [
-      {
-        path: 'home', // child route path
-        component: HomeComponent, // child route component that the router renders
-      },
-      {
-        path: 'videos',
-        component: VideosComponent, // another child route component that the router renders
-      },
-    ],
   },
-  { path: '', redirectTo: 'main', pathMatch: 'full' }, // to redirect to main page if user doesn't enter the correct url
+  { path: '', redirectTo: '/main', pathMatch: 'full' }, // to redirect to main page if user doesn't enter the correct url
   { path: '**', component: MainComponent }, // wildcard route for when page is not found
 ];
 
