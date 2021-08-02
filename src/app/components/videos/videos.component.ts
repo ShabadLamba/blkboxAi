@@ -1,11 +1,19 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  OnDestroy,
+  ViewChild,
+  ElementRef,
+  AfterViewInit,
+} from '@angular/core';
 
 @Component({
   selector: 'app-videos',
   templateUrl: './videos.component.html',
   styleUrls: ['./videos.component.scss'],
 })
-export class VideosComponent implements OnInit {
+export class VideosComponent implements OnInit, OnDestroy, AfterViewInit {
   selectedFrameName = null;
   @Input() set _selectedFrameName(value) {
     this.selectedFrameName = value;
@@ -15,8 +23,13 @@ export class VideosComponent implements OnInit {
   @Input() set _listOfVideos(value) {
     if (value) {
       this.listOfVideos = value;
+      // this.listOfVideos[0].url += 1;
     }
   }
+
+  @ViewChild('videoList') videoList: ElementRef;
+  @ViewChild('video') videoMain: ElementRef;
+  @ViewChild('video2') videoFramesList: ElementRef;
   currentVideo = {};
   currentIndex = 0;
   activeIndex = 0;
@@ -27,6 +40,7 @@ export class VideosComponent implements OnInit {
   videoPreviousTime = 0;
   totalDuration = 0;
   mapOfDurations = {};
+  allVideosLoadedSuccessfully = false;
 
   toolTipTextForPlayerOptions = {
     add: 'Add frame',
@@ -44,6 +58,12 @@ export class VideosComponent implements OnInit {
     this.playNext(window.Event, video);
   }
 
+  ngAfterViewInit(): void {}
+
+  isVideoLoadedSuccessfully(video) {
+    return Object.keys(this.mapOfDurations).includes(video.position);
+  }
+
   showListOfVideos() {
     this.currentVideo = this.listOfVideos[this.currentIndex];
     this.currentIndex += 1;
@@ -51,8 +71,9 @@ export class VideosComponent implements OnInit {
 
   playNext(e, video?) {
     console.log(e);
+    // if (this.isVideoLoadedSuccessfully(this.listOfVideos[this.activeIndex])) {
     if (e.type === 'click') {
-      this.currentTotalDurationLeft -= video.duration - video.currentTime - 1;
+      this.currentTotalDurationLeft -= video.duration - video.currentTime;
     }
     this.videoPreviousTime = 0;
     if (this.listOfVideos.length > 0) {
@@ -130,6 +151,15 @@ export class VideosComponent implements OnInit {
     this.currentTotalDurationLeft = this.totalDuration;
     this.updateDuration(video);
     console.log(this.mapOfDurations);
+    if (this.listOfVideos.length === Object.keys(this.mapOfDurations).length) {
+      // debugger;
+      this.allVideosLoadedSuccessfully = true;
+    }
+
+    console.log(
+      'allVideosLoadedSuccessfully: ',
+      this.allVideosLoadedSuccessfully
+    );
   }
 
   updateDuration(video?) {
@@ -138,7 +168,6 @@ export class VideosComponent implements OnInit {
         video.currentTime - this.videoPreviousTime;
       this.videoPreviousTime = video.currentTime;
     }
-    // console.log('CurrentTime', video.currentTime);
     const hours = Math.floor(this.currentTotalDurationLeft / 3600);
     const minutes = Math.floor(
       (this.currentTotalDurationLeft - hours * 3600) / 60
@@ -183,5 +212,14 @@ export class VideosComponent implements OnInit {
     this.currentTotalDurationLeft = this.totalDuration;
     this.videoPreviousTime = 0;
     this.updateDuration(video);
+  }
+
+  ngOnDestroy(): void {
+    for (const divs of this.videoList.nativeElement.children) {
+      const e = divs.children[0];
+      e.src = '';
+      e.remove();
+      e.srcObject = null;
+    }
   }
 }

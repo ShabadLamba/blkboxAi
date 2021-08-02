@@ -9,7 +9,7 @@
         </div>
     </div>
     <div class="main">
-        <div class="frames-grid">
+        <div #video class="frames-grid">
             <ng-container *ngFor="let frame of listOfVideoFrames">
                 <div (click)="videoSelected(frame)">
                     <video class="video">

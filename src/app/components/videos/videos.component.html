@@ -25,8 +25,17 @@
     <div class="player">
         <div class="player-timer">
             <div class="total-time-text">Total Time</div>
-            <div>
+            <div *ngIf="duration !== 'NaN:NaN:NaN'">
                 {{ duration }}
+            </div>
+            <div style="
+          display: flex;
+          gap: 5px;
+          justify-content: center;
+          align-items: center;
+        " *ngIf="duration === 'NaN:NaN:NaN'">
+                <span>00:00:00</span>
+                <mat-icon matTooltip="Some error occured" matTooltipClass="toolTip" matTooltipPosition="right">error_outline</mat-icon>
             </div>
         </div>
         <div class="player-controls">
@@ -38,7 +47,7 @@
             <mat-icon [matTooltip]="toolTipTextForPlayerOptions.next" matTooltipClass="toolTip" matTooltipPosition="right" class="material-icons-outlined" (click)="playNext($event, video)">
                 skip_next
             </mat-icon>
-            <mat-icon [matTooltip]="toolTipTextForPlayerOptions.previous" matTooltipClass="toolTip" matTooltipPosition="right" class="material-icons-outlined" (click)="playPrevious($event, video)">
+            <mat-icon [matTooltip]="toolTipTextForPlayerOptions.previous" matTooltipClass="toolTip" matTooltipPosition="right" class="material-icons-outlined" (click)="activeIndex !== 0 ? playPrevious($event, video) : ''">
                 skip_previous
             </mat-icon>
             <mat-icon (click)="this.listOfVideos.length > 1 ? deleteFrame(video) : ''" [matTooltip]="toolTipTextForPlayerOptions.delete" matTooltipPosition="right" matTooltipClass="toolTip">delete_outline</mat-icon>
@@ -48,11 +57,11 @@
                 <div class="player-cursor-bar"></div>
                 <div class="player-cursor-line"></div>
             </div>
-            <span style="display: flex; gap: 20px">
+            <span #videoList style="display: flex; gap: 20px">
         <ng-container *ngFor="let videos of listOfVideos; let i = index">
           <div
             [ngClass]="{ activeVideo: activeIndex === i }"
-            style="display: flex; padding: 10px"
+            style="display: flex; padding: 10px; position: relative"
           >
             <video
               #video2
@@ -61,6 +70,16 @@
             >
               <source src="{{ videos.url }}" type="video/mp4" />
             </video>
+            <div
+              *ngIf="!isVideoLoadedSuccessfully(videos)"
+              style="position: absolute; left: 50px; top: 50px"
+            >
+              <img
+                src="./../../../assets/error.png"
+                width="100px;"
+                height="80px"
+              />
+            </div>
           </div>
         </ng-container>
       </span>
