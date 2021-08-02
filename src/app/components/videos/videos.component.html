@@ -41,7 +41,7 @@
             <mat-icon [matTooltip]="toolTipTextForPlayerOptions.previous" matTooltipClass="toolTip" matTooltipPosition="right" class="material-icons-outlined" (click)="playPrevious($event, video)">
                 skip_previous
             </mat-icon>
-            <mat-icon (click)="deleteFrame(video)" [matTooltip]="toolTipTextForPlayerOptions.delete" matTooltipPosition="right" matTooltipClass="toolTip">delete_outline</mat-icon>
+            <mat-icon (click)="this.listOfVideos.length > 1 ? deleteFrame(video) : ''" [matTooltip]="toolTipTextForPlayerOptions.delete" matTooltipPosition="right" matTooltipClass="toolTip">delete_outline</mat-icon>
         </div>
         <div class="player-frames">
             <div class="player-cursor">
@@ -57,7 +57,7 @@
             <video
               #video2
               class="player-video"
-              (loadedmetadata)="onMetadata($event, video2)"
+              (loadedmetadata)="onMetadata($event, video2, videos.position)"
             >
               <source src="{{ videos.url }}" type="video/mp4" />
             </video>

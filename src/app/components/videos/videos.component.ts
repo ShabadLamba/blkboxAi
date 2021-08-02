@@ -26,6 +26,7 @@ export class VideosComponent implements OnInit {
   currentTotalDurationLeft = 0;
   videoPreviousTime = 0;
   totalDuration = 0;
+  mapOfDurations = {};
 
   toolTipTextForPlayerOptions = {
     add: 'Add frame',
@@ -50,6 +51,10 @@ export class VideosComponent implements OnInit {
 
   playNext(e, video?) {
     console.log(e);
+    if (e.type === 'click') {
+      this.currentTotalDurationLeft -= video.duration - video.currentTime - 1;
+    }
+    this.videoPreviousTime = 0;
     if (this.listOfVideos.length > 0) {
       if (
         this.currentIndex > 0 &&
@@ -99,10 +104,15 @@ export class VideosComponent implements OnInit {
         this.currentVideo = this.listOfVideos[this.currentIndex];
         this.playVideo(video);
       }
-
-      // if (this.currentIndex === 0) {
-      //   this.currentIndex = 1;
-      // }
+      if (e.type === 'click') {
+        console.log(this.mapOfDurations);
+        console.log(this.activeIndex);
+        this.currentTotalDurationLeft +=
+          this.mapOfDurations[this.listOfVideos[this.activeIndex].position] +
+          video.currentTime +
+          1;
+      }
+      this.videoPreviousTime = 0;
     }
   }
 
@@ -113,11 +123,13 @@ export class VideosComponent implements OnInit {
     this.isPlaying = true;
   }
 
-  onMetadata(e, video) {
+  onMetadata(e, video, position) {
     console.log('metadata: ', e);
     console.log('duration: ', (this.totalDuration += video.duration));
+    this.mapOfDurations[position] = video.duration;
     this.currentTotalDurationLeft = this.totalDuration;
     this.updateDuration(video);
+    console.log(this.mapOfDurations);
   }
 
   updateDuration(video?) {
@@ -126,7 +138,7 @@ export class VideosComponent implements OnInit {
         video.currentTime - this.videoPreviousTime;
       this.videoPreviousTime = video.currentTime;
     }
-    console.log('CurrentTime', video.currentTime);
+    // console.log('CurrentTime', video.currentTime);
     const hours = Math.floor(this.currentTotalDurationLeft / 3600);
     const minutes = Math.floor(
       (this.currentTotalDurationLeft - hours * 3600) / 60
@@ -143,10 +155,20 @@ export class VideosComponent implements OnInit {
   }
 
   deleteFrame(video) {
+    let removedFramesPositon = '';
+    if (this.currentIndex === 0) {
+      removedFramesPositon = this.listOfVideos[this.currentIndex].position;
+    } else {
+      removedFramesPositon = this.listOfVideos[this.currentIndex - 1].position;
+    }
     this.listOfVideos.splice(this.currentIndex - 1, 1);
     this.resetVideo(video);
     this.currentIndex = 1;
     this.activeIndex = 0;
+    this.currentTotalDurationLeft -= this.mapOfDurations[removedFramesPositon];
+    this.totalDuration = this.currentTotalDurationLeft;
+    this.videoPreviousTime = 0;
+    this.updateDuration(video);
   }
 
   resetVideo(video) {
@@ -158,5 +180,8 @@ export class VideosComponent implements OnInit {
     video.load();
     this.isPlaying = false;
     this.playIconDiv.style.display = 'block';
+    this.currentTotalDurationLeft = this.totalDuration;
+    this.videoPreviousTime = 0;
+    this.updateDuration(video);
   }
 }
