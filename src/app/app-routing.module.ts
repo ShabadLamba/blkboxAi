@@ -20,8 +20,8 @@ const routes: Routes = [
       },
     ],
   },
-  { path: '', redirectTo: '/main', pathMatch: 'full' }, // to redirect to main page if user doesn't enter the correct url
-  { path: '**', component: HomeComponent }, // wildcard route for when page is not found
+  { path: '', redirectTo: 'main', pathMatch: 'full' }, // to redirect to main page if user doesn't enter the correct url
+  { path: '**', component: MainComponent }, // wildcard route for when page is not found
 ];
 
 @NgModule({

@@ -16,8 +16,8 @@ export interface IResponse {
 export class ServerServiceService {
   constructor(private http: HttpClient) {}
 
-  getFramesUrl = 'http://devserver.blkbox.ai/api/studio/creatives/step2';
-  getListOfVideosUrl = 'http://devserver.blkbox.ai/api/studio/creatives/step3';
+  getFramesUrl = 'https://devserver.blkbox.ai/api/studio/creatives/step2';
+  getListOfVideosUrl = 'https://devserver.blkbox.ai/api/studio/creatives/step3';
 
   getListOfFrames() {
     return this.http.get<IResponse>(this.getFramesUrl);
